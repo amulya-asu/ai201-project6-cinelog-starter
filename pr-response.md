@@ -1,7 +1,7 @@
 # PR Response Doc — CineLog Watchlist Feature
 
 ## AI Usage
-<!-- Fill in at the end — how you used AI tools during this project -->
+I used Claude to help me understand the existing collection service code (especially how deduplication and tests were structured). Claude also helped me think through the design reasoning for Comments 4 and 5 by asking clarifying questions about how I would use a watchlist in practice, which helped me write my own substantive responses grounded in actual user behavior rather than generic statements. The final arguments in Comments 4 and 5 are my own reasoning, though Claude's questions helped me articulate them clearly.
 
 ## Comment 1 — Rename
 **What I did:**
@@ -102,3 +102,16 @@ The feature includes deduplication (users can't add the same film twice), proper
      -d '{"film_id": "00000000-0000-0000-0000-000000000000"}'
    ```
    Expected: Returns error indicating film not found.
+
+## Git Log (Final Commit History)
+```
+9859d57 feat: change watchlist sort order to date added (newest first) and document design decisions
+535a2bf fix: update WatchlistEntry film_id to UUID after main branch refactor
+79b3d4a feat: rename save_to_watchlist to add_to_watchlist and add gitignore
+2611474 fix: update watchlist route import to use add_to_watchlist
+8ebef54 test: add test for nonexistent film_id in add_to_watchlist
+79b67a2 fix: update film retrieval method to use db.session.get in collection and watchlist services
+2472a56 added watchlist model and endpoint fixed a bug more changes
+```
+
+7 commits, all representing one logical change each. 6 follow conventional commit format (feat:, fix:, test:). No merge commits.
