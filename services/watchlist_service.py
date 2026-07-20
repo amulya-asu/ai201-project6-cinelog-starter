@@ -9,7 +9,7 @@ from models import Film, WatchlistEntry
 from services.collection_service import FilmNotFoundError
 
 
-def save_to_watchlist(user_id, film_id):
+def add_to_watchlist(user_id, film_id):
     """
     Save a film to a user's watchlist.
 
@@ -26,6 +26,8 @@ def save_to_watchlist(user_id, film_id):
     film = db.session.get(Film, film_id)
     if film is None:
         raise FilmNotFoundError(f"No film found with id '{film_id}'")
+    if WatchlistEntry.query.filter_by(user_id=user_id, film_id=film_id).first():
+        raise ValueError(f"Film with id '{film_id}' is already in the watchlist for user '{user_id}'")
 
     entry = WatchlistEntry(user_id=user_id, film_id=film_id)
     db.session.add(entry)
